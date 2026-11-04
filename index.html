@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apapacho · Salsa macha hecha en casa</title>
+<meta name="description" content="Salsa macha hecha en casa con aceite de oliva extra virgen prensado en frío. Morita y De árbol, $240 el frasco. Pedidos por WhatsApp e Instagram.">
+<style>
+  /* Para cambiar el color de temporada (o de cada logo), basta editar --acento y --acento-oscuro */
+  :root {
+    --acento: #d9531e;          /* naranja de otoño */
+    --acento-oscuro: #a83a0f;
+    --crema: #fbf5ea;
+    --tinta: #2a1a12;
+    --suave: #6b5a50;
+    --linea: #e8dcc8;
+    --tarjeta: #fffdf8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: Georgia, "Times New Roman", serif;
+    background: var(--crema);
+    color: var(--tinta);
+    line-height: 1.55;
+    -webkit-text-size-adjust: 100%;
+  }
+  .sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 0 20px; }
+
+  header { padding: 18px 0; border-bottom: 1px solid var(--linea); }
+  header .wrap { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .marca { font-size: 1.5rem; font-weight: 700; letter-spacing: .02em; color: var(--acento-oscuro); text-decoration: none; }
+  .btn {
+    display: inline-block; background: var(--acento); color: #fff; text-decoration: none;
+    padding: 12px 22px; border-radius: 999px; font-weight: 600; font-size: 1rem;
+  }
+  .btn:hover { background: var(--acento-oscuro); }
+  .btn.chico { padding: 9px 16px; font-size: .92rem; }
+  .btn.borde { background: transparent; color: var(--acento-oscuro); border: 2px solid var(--acento); }
+  .btn.borde:hover { background: var(--acento); color: #fff; }
+
+  .hero { padding: 56px 0 44px; text-align: center; }
+  .hero h1 { font-size: clamp(2rem, 7vw, 3.4rem); line-height: 1.1; margin-bottom: 16px; }
+  .hero p { max-width: 560px; margin: 0 auto 26px; color: var(--suave); font-size: 1.1rem; }
+  .hero .acciones { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+  section { padding: 44px 0; }
+  h2 { font-size: 1.7rem; margin-bottom: 8px; }
+  .sub { color: var(--suave); margin-bottom: 26px; }
+
+  .productos { display: grid; gap: 18px; grid-template-columns: 1fr; }
+  @media (min-width: 640px) { .productos { grid-template-columns: 1fr 1fr; } }
+  .prod { background: var(--tarjeta); border: 1px solid var(--linea); border-radius: 18px; overflow: hidden; }
+  .prod .banda { height: 120px; display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 1.9rem; font-weight: 700; letter-spacing: .02em; }
+  .prod.morita .banda { background: #7a2418; }
+  .prod.arbol .banda { background: var(--acento); }
+  .prod .cuerpo { padding: 20px; }
+  .prod .precio { font-size: 1.5rem; font-weight: 700; margin: 6px 0 10px; }
+  .prod .precio small { font-size: .9rem; font-weight: 400; color: var(--suave); }
+  .prod p { color: var(--suave); margin-bottom: 16px; }
+
+  .ingredientes { background: var(--tarjeta); border: 1px solid var(--linea); border-radius: 14px; padding: 18px 20px; margin-top: 22px; }
+  .ingredientes strong { color: var(--acento-oscuro); }
+
+  .pasos { list-style: none; display: grid; gap: 14px; counter-reset: paso; }
+  .pasos li { counter-increment: paso; background: var(--tarjeta); border: 1px solid var(--linea);
+    border-radius: 14px; padding: 16px 18px 16px 62px; position: relative; }
+  .pasos li::before { content: counter(paso); position: absolute; left: 16px; top: 14px; width: 32px; height: 32px;
+    border-radius: 50%; background: var(--acento); color: #fff; display: flex; align-items: center; justify-content: center;
+    font-family: -apple-system, Helvetica, Arial, sans-serif; font-weight: 700; }
+
+  .zonas { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+  .zonas span { background: var(--tarjeta); border: 1px solid var(--linea); padding: 8px 16px; border-radius: 999px; font-size: .98rem; }
+  .nota { color: var(--suave); font-size: .92rem; margin-top: 14px; }
+
+  .cierre { text-align: center; background: var(--acento); color: #fff; border-radius: 22px; padding: 40px 22px; }
+  .cierre h2 { margin-bottom: 14px; }
+  .cierre .btn { background: #fff; color: var(--acento-oscuro); }
+  .cierre .btn:hover { background: var(--crema); }
+  .cierre .btn.borde { background: transparent; color: #fff; border-color: #fff; }
+  .cierre .btn.borde:hover { background: #fff; color: var(--acento-oscuro); }
+
+  footer { padding: 30px 0 40px; text-align: center; color: var(--suave); font-size: .92rem; }
+  footer a { color: var(--acento-oscuro); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="marca" href="#">Apapacho</a>
+    <a class="btn chico sans" href="https://wa.me/525543774702?text=Hola%2C%20quiero%20pedir%20salsa%20Apapacho" target="_blank" rel="noopener">Pedir por WhatsApp</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <div class="hero">
+      <h1>Salsa macha hecha en casa</h1>
+      <p>Con aceite de oliva extra virgen prensado en frío. Dos sabores, Morita y De árbol, para quien la quiere rica y bien picosa.</p>
+      <div class="acciones sans">
+        <a class="btn" href="https://wa.me/525543774702?text=Hola%2C%20quiero%20pedir%20salsa%20Apapacho" target="_blank" rel="noopener">Pedir por WhatsApp</a>
+        <a class="btn borde" href="https://instagram.com/apapachobynatguindi" target="_blank" rel="noopener">Ver Instagram</a>
+      </div>
+    </div>
+
+    <section id="salsas">
+      <h2>Nuestras salsas</h2>
+      <p class="sub">Un solo precio para las dos.</p>
+
+      <div class="productos">
+        <article class="prod morita">
+          <div class="banda">Morita</div>
+          <div class="cuerpo">
+            <div class="precio">$240 <small class="sans">MXN · frasco</small></div>
+            <p>Salsa macha de chile morita.</p>
+            <a class="btn chico sans" href="https://wa.me/525543774702?text=Hola%2C%20quiero%20salsa%20Apapacho%20Morita" target="_blank" rel="noopener">Pedir Morita</a>
+          </div>
+        </article>
+
+        <article class="prod arbol">
+          <div class="banda">De árbol</div>
+          <div class="cuerpo">
+            <div class="precio">$240 <small class="sans">MXN · frasco</small></div>
+            <p>Salsa macha de chile de árbol.</p>
+            <a class="btn chico sans" href="https://wa.me/525543774702?text=Hola%2C%20quiero%20salsa%20Apapacho%20De%20%C3%A1rbol" target="_blank" rel="noopener">Pedir De árbol</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="ingredientes">
+        <strong>Ingredientes:</strong> aceite de oliva extra virgen prensado en frío, cebolla, chiles secos, echalote, sal de mar, ajo y especias. Todo va frito.
+      </div>
+    </section>
+
+    <section id="pedir">
+      <h2>Cómo pedir</h2>
+      <p class="sub">Los pedidos entran por WhatsApp e Instagram.</p>
+      <ol class="pasos sans">
+        <li>Escríbenos por WhatsApp al <strong>55 4377 4702</strong> o por Instagram a <strong>@apapachobynatguindi</strong>.</li>
+        <li>Dinos qué sabor quieres y cuántos frascos.</li>
+        <li>Te confirmamos la entrega en tu zona.</li>
+      </ol>
+    </section>
+
+    <section id="zonas">
+      <h2>Zonas de entrega</h2>
+      <div class="zonas sans">
+        <span>Bosques de las Lomas</span>
+        <span>Lomas</span>
+        <span>Interlomas</span>
+        <span>Polanco</span>
+        <span>La Herradura</span>
+        <span>Santa Fe</span>
+        <span>Tecamachalco</span>
+        <span>Virreyes</span>
+      </div>
+      <p class="nota sans">Las zonas son aproximadas. Si estás cerca, pregúntanos.</p>
+    </section>
+
+    <section>
+      <div class="cierre">
+        <h2>¿Quieres probarla?</h2>
+        <div class="sans" style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+          <a class="btn" href="https://wa.me/525543774702?text=Hola%2C%20quiero%20pedir%20salsa%20Apapacho" target="_blank" rel="noopener">Pedir por WhatsApp</a>
+          <a class="btn borde" href="https://instagram.com/apapachobynatguindi" target="_blank" rel="noopener">@apapachobynatguindi</a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap sans">
+    Apapacho · hecha en casa por Natalia y Bruno ·
+    <a href="https://instagram.com/apapachobynatguindi" target="_blank" rel="noopener">Instagram</a>
+  </div>
+</footer>
+
+</body>
+</html>
