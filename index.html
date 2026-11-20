@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Apapacho · Salsa macha hecha en casa</title>
-<meta name="description" content="Salsa macha hecha en casa con aceite de oliva extra virgen prensado en frío. Morita y De árbol, $250 el frasco. Pedidos por WhatsApp e Instagram.">
+<meta name="description" content="Salsa macha hecha en casa con aceite de oliva extra virgen prensado en frío. Morita y De árbol a $250, Morita con arándano a $280. Pedidos por WhatsApp e Instagram.">
 <meta name="theme-color" content="#f9cfd6">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,6 +17,7 @@
     --aceite: #c62a0d;        /* la salsa que escurre */
     --morita: #3a1410;        /* café vino del chile morita */
     --arbol: #d7261e;         /* rojo del chile de árbol */
+    --arandano: #3f2160;      /* morado del arándano */
     --semilla: #fff3e6;       /* texto claro sobre fondos oscuros */
     --display: "Fraunces", Georgia, serif;
     --texto: "Bricolage Grotesque", system-ui, sans-serif;
@@ -102,13 +103,15 @@
 
   /* ---------- Las dos salsas ---------- */
   .salsas { display: grid; grid-template-columns: 1fr; }
-  @media (min-width: 860px) { .salsas { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 980px) { .salsas { grid-template-columns: repeat(3, 1fr); } }
   .salsa { position: relative; padding: 150px 0 140px; color: var(--semilla); overflow-x: clip; }
   .salsa .dentro { max-width: 500px; margin: 0 auto; padding: 0 24px; }
   .salsa.morita { background: var(--morita); }
   .salsa.arbol { background: var(--naranja); color: var(--morita); }
+  .salsa.arandano { background: var(--arandano); }
   .salsa.arbol .btn.claro { background: var(--morita); color: var(--semilla); }
   .salsa h2 { font-size: clamp(3rem, 8vw, 5rem); margin-bottom: 18px; }
+  @media (min-width: 980px) { .salsa h2 { font-size: clamp(2.6rem, 3.9vw, 3.8rem); } }
   .salsa p { max-width: 32ch; margin-bottom: 26px; font-size: 1.1rem; }
   .salsa .precio { font-family: var(--display); font-weight: 800; font-size: 2.4rem; margin-bottom: 22px; }
   .salsa .precio small { font-family: var(--texto); font-weight: 500; font-size: 1rem; opacity: .85; }
@@ -257,6 +260,37 @@
       <path d="M96 28 C92 18, 84 10, 70 6" fill="none" stroke="url(#g-tallo)" stroke-width="7" stroke-linecap="round"/>
     </symbol>
 
+    <!-- Arándano: azul profundo con la capa blanca de cera, corona arriba -->
+    <radialGradient id="g-arandano" cx=".35" cy=".3" r=".85">
+      <stop offset="0" stop-color="#8296e8"/>
+      <stop offset=".4" stop-color="#3f4fae"/>
+      <stop offset=".8" stop-color="#1f2569"/>
+      <stop offset="1" stop-color="#0e1140"/>
+    </radialGradient>
+    <radialGradient id="g-cera" cx=".38" cy=".32" r=".6">
+      <stop offset="0" stop-color="#dfe6ff" stop-opacity=".6"/>
+      <stop offset="1" stop-color="#dfe6ff" stop-opacity="0"/>
+    </radialGradient>
+    <symbol id="arandano" viewBox="0 0 100 100">
+      <circle cx="50" cy="55" r="44" fill="url(#g-arandano)"/>
+      <circle cx="50" cy="55" r="44" fill="url(#g-cera)"/>
+      <ellipse cx="34" cy="40" rx="11" ry="6.5" fill="#fff" opacity=".5" transform="rotate(-32 34 40)"/>
+      <circle cx="27" cy="63" r="2.2" fill="#fff" opacity=".18"/>
+      <circle cx="66" cy="74" r="2.6" fill="#fff" opacity=".14"/>
+      <polygon points="50.0,16.5 52.7,23.3 60.0,23.8 54.4,28.4 56.2,35.5 50.0,31.6 43.8,35.5 45.6,28.4 40.0,23.8 47.3,23.3" fill="#0b0d33" stroke="#1f2569" stroke-width="1.2" stroke-linejoin="round"/>
+      <circle cx="50" cy="27" r="2.2" fill="#3a3f8a"/>
+    </symbol>
+
+    <!-- Morita con arándano: el chile con tres arándanos a su lado -->
+    <symbol id="morita-arandano" viewBox="0 0 340 230">
+      <use href="#chile-morita" x="0" y="4" width="250" height="192"/>
+      <use href="#arandano" x="196" y="128" width="84" height="84"/>
+      <use href="#arandano" x="254" y="78" width="68" height="68" transform="rotate(14 288 112)"/>
+      <use href="#arandano" x="150" y="156" width="62" height="62" transform="rotate(-10 181 187)"/>
+      <path d="M268 80 C258 62 264 44 282 38 C288 56 284 72 268 80 Z" fill="#4f7d34"/>
+      <path d="M270 78 C274 64 278 52 282 40" fill="none" stroke="#365a22" stroke-width="1.6" stroke-linecap="round"/>
+    </symbol>
+
     <symbol id="ico-wa" viewBox="0 0 24 24">
       <path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.6 11.6 0 0 0 4.4 3.9c1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3Z"/>
     </symbol>
@@ -317,6 +351,18 @@
       </a>
     </div>
   </section>
+
+  <section class="seccion salsa arandano" data-goteo="var(--arandano)">
+    <div class="dentro">
+      <svg class="grande entra" viewBox="0 0 340 230" aria-hidden="true"><use href="#morita-arandano"/></svg>
+      <h2>Morita con arándano</h2>
+      <p>Chile morita con arándano en aceite de oliva extra virgen prensado en frío.</p>
+      <div class="precio">$280 <small>MXN el frasco</small></div>
+      <a class="btn claro" href="https://wa.me/525543774702?text=Hola%2C%20quiero%20salsa%20Apapacho%20Morita%20con%20ar%C3%A1ndano" target="_blank" rel="noopener">
+        <svg aria-hidden="true"><use href="#ico-wa"/></svg>Pedir con arándano
+      </a>
+    </div>
+  </section>
 </div>
 
 <!-- Lo que lleva -->
@@ -368,7 +414,7 @@
 <!-- Cierre -->
 <section class="cierre">
   <div class="wrap">
-    <h2>¿Morita o de árbol?</h2>
+    <h2>¿Cuál te llevas?</h2>
     <div class="acciones">
       <a class="btn claro" href="https://wa.me/525543774702?text=Hola%2C%20quiero%20pedir%20salsa%20Apapacho.%20%C2%BFQu%C3%A9%20sabores%20tienen%20hoy%3F" target="_blank" rel="noopener">
         <svg aria-hidden="true"><use href="#ico-wa"/></svg>Pedir por WhatsApp
