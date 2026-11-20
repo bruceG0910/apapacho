@@ -4,182 +4,501 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Apapacho · Salsa macha hecha en casa</title>
-<meta name="description" content="Salsa macha hecha en casa con aceite de oliva extra virgen prensado en frío. Morita y De árbol, $250 el frasco. Pedidos por WhatsApp e Instagram.">
+<meta name="description" content="Salsa macha hecha en casa con aceite de oliva extra virgen prensado en frío. Morita y De árbol a $250, Morita con arándano a $280. Pedidos por WhatsApp e Instagram.">
+<meta name="theme-color" content="#f9cfd6">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,600..900,100&family=Bricolage+Grotesque:opsz,wght@12..96,400..700&display=swap" rel="stylesheet">
 <style>
-  /* Para cambiar el color de temporada (o de cada logo), basta editar --acento y --acento-oscuro */
+  /* Colores de temporada: cambia estos valores y toda la página se ajusta */
   :root {
-    --acento: #d9531e;          /* naranja de otoño */
-    --acento-oscuro: #a83a0f;
-    --crema: #fbf5ea;
-    --tinta: #2a1a12;
-    --suave: #6b5a50;
-    --linea: #e8dcc8;
-    --tarjeta: #fffdf8;
+    --rosa: #f9cfd6;          /* fondo, color base de la marca */
+    --naranja: #ff6b1f;       /* logo de otoño */
+    --aceite: #c62a0d;        /* la salsa que escurre */
+    --morita: #3a1410;        /* café vino del chile morita */
+    --arbol: #d7261e;         /* rojo del chile de árbol */
+    --arandano: #3f2160;      /* morado del arándano */
+    --semilla: #fff3e6;       /* texto claro sobre fondos oscuros */
+    --display: "Fraunces", Georgia, serif;
+    --texto: "Bricolage Grotesque", system-ui, sans-serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
+  html { -webkit-text-size-adjust: 100%; }
   body {
-    font-family: Georgia, "Times New Roman", serif;
-    background: var(--crema);
-    color: var(--tinta);
-    line-height: 1.55;
-    -webkit-text-size-adjust: 100%;
+    background: var(--rosa);
+    color: var(--morita);
+    font-family: var(--texto);
+    font-size: 1.0625rem;
+    line-height: 1.5;
+    overflow-x: hidden;
   }
-  .sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-  .wrap { max-width: 920px; margin: 0 auto; padding: 0 20px; }
+  img, svg { display: block; }
+  a { color: inherit; }
+  ::selection { background: var(--naranja); color: var(--morita); }
+  :focus-visible { outline: 3px solid var(--morita); outline-offset: 3px; border-radius: 6px; }
 
-  header { padding: 18px 0; border-bottom: 1px solid var(--linea); }
-  header .wrap { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-  .marca { font-size: 1.5rem; font-weight: 700; letter-spacing: .02em; color: var(--acento-oscuro); text-decoration: none; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+  h1, h2, h3 {
+    font-family: var(--display);
+    font-variation-settings: "SOFT" 100;
+    font-weight: 900;
+    line-height: .95;
+    letter-spacing: -.02em;
+  }
+
+  /* Botones */
   .btn {
-    display: inline-block; background: var(--acento); color: #fff; text-decoration: none;
-    padding: 12px 22px; border-radius: 999px; font-weight: 600; font-size: 1rem;
+    display: inline-flex; align-items: center; gap: .5em;
+    font-family: var(--texto); font-weight: 700; font-size: 1.05rem;
+    text-decoration: none; padding: .85em 1.4em; border-radius: 999px;
+    background: var(--morita); color: var(--semilla);
+    transition: transform .15s ease, background .15s ease;
   }
-  .btn:hover { background: var(--acento-oscuro); }
-  .btn.chico { padding: 9px 16px; font-size: .92rem; }
-  .btn.borde { background: transparent; color: var(--acento-oscuro); border: 2px solid var(--acento); }
-  .btn.borde:hover { background: var(--acento); color: #fff; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:active { transform: translateY(0); }
+  .btn.claro { background: var(--semilla); color: var(--morita); }
+  .btn.linea { background: transparent; color: var(--morita); box-shadow: inset 0 0 0 2.5px var(--morita); }
+  .btn svg { width: 1.2em; height: 1.2em; }
 
-  .hero { padding: 56px 0 44px; text-align: center; }
-  .hero h1 { font-size: clamp(2rem, 7vw, 3.4rem); line-height: 1.1; margin-bottom: 16px; }
-  .hero p { max-width: 560px; margin: 0 auto 26px; color: var(--suave); font-size: 1.1rem; }
-  .hero .acciones { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  /* ---------- Salsa que escurre ---------- */
+  .seccion { position: relative; }
+  .goteo {
+    position: absolute; left: 0; right: 0; top: calc(100% - 2px); height: 220px;
+    z-index: 2; pointer-events: none;
+    filter: url(#goo);
+  }
+  .goteo span {
+    position: absolute; top: -2px;
+    width: var(--w); height: calc(var(--h) * var(--p, .3));
+    min-height: 10px;
+    background: var(--c);
+    border-radius: 0 0 999px 999px;
+    will-change: height;
+  }
+  .goteo span::after { /* la gota de la punta */
+    content: ""; position: absolute; left: 50%; bottom: -6px;
+    width: calc(var(--w) * 1.35); aspect-ratio: 1; transform: translateX(-50%);
+    background: var(--c); border-radius: 50%;
+  }
 
-  section { padding: 44px 0; }
-  h2 { font-size: 1.7rem; margin-bottom: 8px; }
-  .sub { color: var(--suave); margin-bottom: 26px; }
+  /* ---------- Portada ---------- */
+  .portada { padding: 28px 0 150px; overflow-x: clip; }
+  .barra { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+  .barra img { width: clamp(130px, 22vw, 190px); height: auto; }
+  .barra .btn { font-size: .95rem; padding: .7em 1.15em; }
+  .portada .contenido {
+    display: grid; gap: 28px; align-items: center;
+    grid-template-columns: 1fr; padding-top: 48px;
+  }
+  @media (min-width: 860px) {
+    .portada .contenido { grid-template-columns: 1.15fr .85fr; padding-top: 64px; }
+  }
+  .portada h1 { font-size: clamp(3.1rem, 10vw, 6.6rem); color: var(--morita); }
+  .portada p { font-size: clamp(1.1rem, 2.2vw, 1.3rem); max-width: 34ch; margin: 22px 0 30px; }
+  .acciones { display: flex; gap: 12px; flex-wrap: wrap; }
+  .chiles { position: relative; height: clamp(260px, 42vw, 420px); }
+  .chiles svg { position: absolute; will-change: transform; filter: drop-shadow(0 18px 18px rgba(58,20,16,.22)); }
+  .chiles .c-arbol { width: 92%; left: 2%; top: 8%; }
+  .chiles .c-morita { width: 58%; right: 4%; bottom: 4%; }
 
-  .productos { display: grid; gap: 18px; grid-template-columns: 1fr; }
-  @media (min-width: 640px) { .productos { grid-template-columns: 1fr 1fr; } }
-  .prod { background: var(--tarjeta); border: 1px solid var(--linea); border-radius: 18px; overflow: hidden; }
-  .prod .banda { height: 120px; display: flex; align-items: center; justify-content: center;
-    color: #fff; font-size: 1.9rem; font-weight: 700; letter-spacing: .02em; }
-  .prod.morita .banda { background: #7a2418; }
-  .prod.arbol .banda { background: var(--acento); }
-  .prod .cuerpo { padding: 20px; }
-  .prod .precio { font-size: 1.5rem; font-weight: 700; margin: 6px 0 10px; }
-  .prod .precio small { font-size: .9rem; font-weight: 400; color: var(--suave); }
-  .prod p { color: var(--suave); margin-bottom: 16px; }
+  /* ---------- Las dos salsas ---------- */
+  .salsas { display: grid; grid-template-columns: 1fr; }
+  @media (min-width: 980px) { .salsas { grid-template-columns: repeat(3, 1fr); } }
+  .salsa { position: relative; padding: 150px 0 140px; color: var(--semilla); overflow-x: clip; }
+  .salsa .dentro { max-width: 500px; margin: 0 auto; padding: 0 24px; }
+  .salsa.morita { background: var(--morita); }
+  .salsa.arbol { background: var(--naranja); color: var(--morita); }
+  .salsa.arandano { background: var(--arandano); }
+  .salsa.arbol .btn.claro { background: var(--morita); color: var(--semilla); }
+  .salsa h2 { font-size: clamp(3rem, 8vw, 5rem); margin-bottom: 18px; }
+  @media (min-width: 980px) { .salsa h2 { font-size: clamp(2.6rem, 3.9vw, 3.8rem); } }
+  .salsa p { max-width: 32ch; margin-bottom: 26px; font-size: 1.1rem; }
+  .salsa .precio { font-family: var(--display); font-weight: 800; font-size: 2.4rem; margin-bottom: 22px; }
+  .salsa .precio small { font-family: var(--texto); font-weight: 500; font-size: 1rem; opacity: .85; }
+  .salsa svg.grande { width: min(70%, 340px); margin: 0 0 28px -10px; transition: transform .6s cubic-bezier(.2,.8,.2,1); }
+  .salsa:hover svg.grande { transform: rotate(-6deg) scale(1.03); }
+  @media (min-width: 860px) { .salsa { padding-top: 170px; } }
 
-  .ingredientes { background: var(--tarjeta); border: 1px solid var(--linea); border-radius: 14px; padding: 18px 20px; margin-top: 22px; }
-  .ingredientes strong { color: var(--acento-oscuro); }
+  /* ---------- Lo que lleva ---------- */
+  .lleva { padding: 160px 0 130px; }
+  .lleva h2 { font-size: clamp(2.6rem, 7vw, 4.4rem); margin-bottom: 26px; }
+  .lleva .lista {
+    font-family: var(--display); font-weight: 700; font-variation-settings: "SOFT" 100;
+    font-size: clamp(1.5rem, 3.6vw, 2.3rem); line-height: 1.25; max-width: 26ch;
+  }
+  .lleva .lista em { font-style: normal; color: var(--aceite); }
+  .echale { margin-top: 70px; overflow: hidden; }
+  .echale p { font-weight: 600; margin-bottom: 10px; }
+  .fila {
+    display: flex; gap: .6em; white-space: nowrap; will-change: transform;
+    font-family: var(--display); font-weight: 900; font-variation-settings: "SOFT" 100;
+    font-size: clamp(2.6rem, 9vw, 5.5rem); color: var(--naranja); line-height: 1.05;
+  }
+  .fila span:nth-child(even) { color: var(--morita); }
 
-  .pasos { list-style: none; display: grid; gap: 14px; counter-reset: paso; }
-  .pasos li { counter-increment: paso; background: var(--tarjeta); border: 1px solid var(--linea);
-    border-radius: 14px; padding: 16px 18px 16px 62px; position: relative; }
-  .pasos li::before { content: counter(paso); position: absolute; left: 16px; top: 14px; width: 32px; height: 32px;
-    border-radius: 50%; background: var(--acento); color: #fff; display: flex; align-items: center; justify-content: center;
-    font-family: -apple-system, Helvetica, Arial, sans-serif; font-weight: 700; }
+  /* ---------- Cómo pedir ---------- */
+  .pedir { background: var(--morita); color: var(--semilla); padding: 150px 0 140px; }
+  .pedir h2 { font-size: clamp(2.6rem, 7vw, 4.4rem); margin-bottom: 34px; }
+  .pasos { list-style: none; display: grid; gap: 26px; grid-template-columns: 1fr; counter-reset: paso; }
+  @media (min-width: 760px) { .pasos { grid-template-columns: repeat(3, 1fr); } }
+  .pasos li { counter-increment: paso; font-size: 1.12rem; max-width: 30ch; }
+  .pasos li::before {
+    content: counter(paso); display: block;
+    font-family: var(--display); font-weight: 900; font-size: 4.2rem; line-height: 1;
+    color: var(--naranja); margin-bottom: 8px;
+  }
+  .pasos strong { font-weight: 700; }
 
-  .zonas { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
-  .zonas span { background: var(--tarjeta); border: 1px solid var(--linea); padding: 8px 16px; border-radius: 999px; font-size: .98rem; }
-  .nota { color: var(--suave); font-size: .92rem; margin-top: 14px; }
+  /* ---------- Zonas ---------- */
+  .zonas { padding: 160px 0 120px; }
+  .zonas h2 { font-size: clamp(2.6rem, 7vw, 4.4rem); margin-bottom: 26px; }
+  .zonas ul { list-style: none; display: flex; flex-wrap: wrap; gap: 10px; max-width: 760px; }
+  .zonas li {
+    padding: .5em 1.05em; border-radius: 999px; font-weight: 600;
+    box-shadow: inset 0 0 0 2px var(--morita);
+  }
+  .zonas .nota { margin-top: 18px; max-width: 46ch; }
 
-  .cierre { text-align: center; background: var(--acento); color: #fff; border-radius: 22px; padding: 40px 22px; }
-  .cierre h2 { margin-bottom: 14px; }
-  .cierre .btn { background: #fff; color: var(--acento-oscuro); }
-  .cierre .btn:hover { background: var(--crema); }
-  .cierre .btn.borde { background: transparent; color: #fff; border-color: #fff; }
-  .cierre .btn.borde:hover { background: #fff; color: var(--acento-oscuro); }
+  /* ---------- Cierre ---------- */
+  .cierre { background: var(--aceite); color: var(--semilla); padding: 180px 0 40px; text-align: center; }
+  .cierre h2 { font-size: clamp(3rem, 10vw, 6.5rem); margin-bottom: 30px; }
+  .cierre .acciones { justify-content: center; }
+  .cierre .btn.linea { color: var(--semilla); box-shadow: inset 0 0 0 2.5px var(--semilla); }
+  .cierre footer { margin-top: 90px; font-size: .95rem; opacity: .9; display: grid; gap: 14px; justify-items: center; }
+  .cierre footer img { width: 150px; height: auto; }
 
-  footer { padding: 30px 0 40px; text-align: center; color: var(--suave); font-size: .92rem; }
-  footer a { color: var(--acento-oscuro); }
+  /* Aparecer al entrar (solo los chiles grandes) */
+  .entra { opacity: 0; transform: translateY(30px) rotate(-8deg); transition: opacity .8s ease, transform .9s cubic-bezier(.2,.8,.2,1); }
+  .entra.visto { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .entra { opacity: 1; transform: none; transition: none; }
+    .btn, .salsa svg.grande { transition: none; }
+    .salsa:hover svg.grande { transform: none; }
+  }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="wrap">
-    <a class="marca" href="#">Apapacho</a>
-    <a class="btn chico sans" href="https://wa.me/525543774702?text=Hola%2C%20quiero%20pedir%20salsa%20Apapacho.%20%C2%BFQu%C3%A9%20sabores%20tienen%20hoy%3F" target="_blank" rel="noopener">Pedir por WhatsApp</a>
-  </div>
-</header>
+<!-- Filtro que hace que las gotas se vean como líquido -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="goo">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="7" result="blur"/>
+      <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9" result="goo"/>
+      <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+    </filter>
 
-<main>
-  <div class="wrap">
+    <!-- Texturas para que los chiles se vean secos y orgánicos -->
+    <filter id="seco" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="7" result="ruido"/>
+      <feDisplacementMap in="SourceGraphic" in2="ruido" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="seco-suave" x="-5%" y="-10%" width="110%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="1" seed="3" result="ruido"/>
+      <feDisplacementMap in="SourceGraphic" in2="ruido" scale="2.5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <linearGradient id="g-arbol" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ff5b3a"/>
+      <stop offset=".38" stop-color="#e3231a"/>
+      <stop offset=".75" stop-color="#b3130d"/>
+      <stop offset="1" stop-color="#6e0906"/>
+    </linearGradient>
+    <linearGradient id="g-tallo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9a9a52"/>
+      <stop offset="1" stop-color="#5d5a26"/>
+    </linearGradient>
+    <radialGradient id="g-morita" cx=".38" cy=".3" r=".85">
+      <stop offset="0" stop-color="#8a2d22"/>
+      <stop offset=".35" stop-color="#5e1a14"/>
+      <stop offset=".75" stop-color="#3a0d0a"/>
+      <stop offset="1" stop-color="#1f0504"/>
+    </radialGradient>
+    <linearGradient id="g-caliz" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8a7a40"/>
+      <stop offset="1" stop-color="#4a3c18"/>
+    </linearGradient>
 
-    <div class="hero">
-      <h1>Salsa macha hecha en casa</h1>
-      <p>Con aceite de oliva extra virgen prensado en frío. Dos sabores, Morita y De árbol, para quien la quiere rica y bien picosa.</p>
-      <div class="acciones sans">
-        <a class="btn" href="https://wa.me/525543774702?text=Hola%2C%20quiero%20pedir%20salsa%20Apapacho.%20%C2%BFQu%C3%A9%20sabores%20tienen%20hoy%3F" target="_blank" rel="noopener">Pedir por WhatsApp</a>
-        <a class="btn borde" href="https://instagram.com/apapachobynatguindi" target="_blank" rel="noopener">Ver Instagram</a>
-      </div>
+    <!-- Chile de árbol: largo, delgado, curvo, rojo brillante -->
+    <symbol id="chile-arbol" viewBox="0 0 400 120">
+      <g filter="url(#seco-suave)">
+        <path d="M66 45 C104 37, 150 34, 200 38 C246 42, 290 50, 322 62 C352 73, 376 88, 395 106 C372 96, 348 89, 318 84 C276 78, 236 76, 196 76 C150 76, 106 78, 68 75 C58 70, 56 52, 66 45 Z" fill="url(#g-arbol)"/>
+        <path d="M84 47 C140 39, 210 40, 270 50 C300 55, 326 63, 348 74" fill="none" stroke="#ffd2c4" stroke-width="3.5" stroke-linecap="round" opacity=".6"/>
+        <path d="M110 44 C150 41, 190 41, 232 45" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".55"/>
+        <path d="M120 62 C160 58, 200 60, 236 63" fill="none" stroke="#7a0b08" stroke-width="2" stroke-linecap="round" opacity=".35"/>
+        <path d="M250 66 C280 68, 306 74, 334 84" fill="none" stroke="#7a0b08" stroke-width="2" stroke-linecap="round" opacity=".35"/>
+        <path d="M150 70 C190 70, 228 70, 262 73" fill="none" stroke="#5a0605" stroke-width="2.5" stroke-linecap="round" opacity=".3"/>
+      </g>
+      <!-- cáliz y tallo -->
+      <path d="M72 42 C62 38, 50 44, 47 56 C44 68, 52 79, 66 79 C70 78, 72 76, 72 74 C64 66, 64 52, 72 42 Z" fill="url(#g-caliz)"/>
+      <path d="M58 44 C62 50, 62 66, 58 76" fill="none" stroke="#3b2f12" stroke-width="2" opacity=".5"/>
+      <path d="M49 58 C34 56, 20 46, 12 26" fill="none" stroke="url(#g-tallo)" stroke-width="6" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- Chile morita: alargado con punta, arrugado, café vino -->
+    <symbol id="chile-morita" viewBox="0 0 260 200">
+      <g filter="url(#seco)">
+        <path d="M80 56 C100 40, 136 38, 166 54 C190 66, 204 84, 214 106 C222 124, 228 142, 236 160 C238 168, 232 172, 222 168 C204 162, 186 154, 166 146 C140 136, 112 128, 92 112 C70 96, 62 72, 80 56 Z" fill="url(#g-morita)"/>
+        <!-- pliegues a lo largo -->
+        <path d="M92 64 C120 70, 150 90, 172 116 C190 136, 208 150, 228 162" fill="none" stroke="#1a0403" stroke-width="3.5" stroke-linecap="round" opacity=".75"/>
+        <path d="M104 52 C134 58, 166 78, 186 104 C200 122, 214 140, 230 156" fill="none" stroke="#1a0403" stroke-width="3" stroke-linecap="round" opacity=".6"/>
+        <path d="M86 84 C110 96, 136 112, 160 132 C176 144, 196 154, 214 162" fill="none" stroke="#1a0403" stroke-width="3" stroke-linecap="round" opacity=".6"/>
+        <path d="M80 100 C100 110, 122 120, 146 132" fill="none" stroke="#1a0403" stroke-width="2.5" stroke-linecap="round" opacity=".55"/>
+        <!-- crestas con brillo -->
+        <path d="M98 58 C128 64, 158 84, 180 110 C194 128, 210 144, 226 156" fill="none" stroke="#b0503c" stroke-width="2.5" stroke-linecap="round" opacity=".55"/>
+        <path d="M90 74 C116 82, 142 100, 164 122" fill="none" stroke="#c4614a" stroke-width="2" stroke-linecap="round" opacity=".45"/>
+        <path d="M116 48 C140 52, 162 64, 178 80" fill="none" stroke="#e08a70" stroke-width="2.5" stroke-linecap="round" opacity=".45"/>
+        <!-- arrugas cortas cruzadas -->
+        <path d="M140 74 C136 84, 138 94, 144 100" fill="none" stroke="#1a0403" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+        <path d="M176 100 C170 110, 172 120, 178 126" fill="none" stroke="#1a0403" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+        <path d="M118 96 C114 104, 116 112, 122 116" fill="none" stroke="#1a0403" stroke-width="2" stroke-linecap="round" opacity=".45"/>
+        <path d="M200 128 C196 136, 198 144, 204 148" fill="none" stroke="#1a0403" stroke-width="2" stroke-linecap="round" opacity=".45"/>
+      </g>
+      <!-- cáliz y tallo -->
+      <path d="M86 52 C76 40, 80 28, 94 26 C106 25, 112 34, 108 44 C102 46, 94 48, 86 52 Z" fill="url(#g-caliz)"/>
+      <path d="M74 64 C66 58, 66 48, 76 46 C84 46, 88 50, 86 56 Z" fill="url(#g-caliz)"/>
+      <path d="M96 28 C92 18, 84 10, 70 6" fill="none" stroke="url(#g-tallo)" stroke-width="7" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- Arándano: azul profundo con la capa blanca de cera, corona arriba -->
+    <radialGradient id="g-arandano" cx=".35" cy=".3" r=".85">
+      <stop offset="0" stop-color="#8296e8"/>
+      <stop offset=".4" stop-color="#3f4fae"/>
+      <stop offset=".8" stop-color="#1f2569"/>
+      <stop offset="1" stop-color="#0e1140"/>
+    </radialGradient>
+    <radialGradient id="g-cera" cx=".38" cy=".32" r=".6">
+      <stop offset="0" stop-color="#dfe6ff" stop-opacity=".6"/>
+      <stop offset="1" stop-color="#dfe6ff" stop-opacity="0"/>
+    </radialGradient>
+    <symbol id="arandano" viewBox="0 0 100 100">
+      <circle cx="50" cy="55" r="44" fill="url(#g-arandano)"/>
+      <circle cx="50" cy="55" r="44" fill="url(#g-cera)"/>
+      <ellipse cx="34" cy="40" rx="11" ry="6.5" fill="#fff" opacity=".5" transform="rotate(-32 34 40)"/>
+      <circle cx="27" cy="63" r="2.2" fill="#fff" opacity=".18"/>
+      <circle cx="66" cy="74" r="2.6" fill="#fff" opacity=".14"/>
+      <polygon points="50.0,16.5 52.7,23.3 60.0,23.8 54.4,28.4 56.2,35.5 50.0,31.6 43.8,35.5 45.6,28.4 40.0,23.8 47.3,23.3" fill="#0b0d33" stroke="#1f2569" stroke-width="1.2" stroke-linejoin="round"/>
+      <circle cx="50" cy="27" r="2.2" fill="#3a3f8a"/>
+    </symbol>
+
+    <!-- Morita con arándano: el chile con tres arándanos a su lado -->
+    <symbol id="morita-arandano" viewBox="0 0 340 230">
+      <use href="#chile-morita" x="0" y="4" width="250" height="192"/>
+      <use href="#arandano" x="196" y="128" width="84" height="84"/>
+      <use href="#arandano" x="254" y="78" width="68" height="68" transform="rotate(14 288 112)"/>
+      <use href="#arandano" x="150" y="156" width="62" height="62" transform="rotate(-10 181 187)"/>
+      <path d="M268 80 C258 62 264 44 282 38 C288 56 284 72 268 80 Z" fill="#4f7d34"/>
+      <path d="M270 78 C274 64 278 52 282 40" fill="none" stroke="#365a22" stroke-width="1.6" stroke-linecap="round"/>
+    </symbol>
+
+    <symbol id="ico-wa" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.6 11.6 0 0 0 4.4 3.9c1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3Z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- Portada -->
+<section class="seccion portada" data-goteo="var(--rosa)">
+  <div class="wrap">
+    <div class="barra">
+      <img src="assets/logo-naranja.png" alt="Apapacho" width="900" height="183">
+      <a class="btn" href="https://wa.me/525543774702?text=Hola%2C%20quiero%20pedir%20salsa%20Apapacho.%20%C2%BFQu%C3%A9%20sabores%20tienen%20hoy%3F" target="_blank" rel="noopener">
+        <svg aria-hidden="true"><use href="#ico-wa"/></svg>Pedir
+      </a>
     </div>
 
-    <section id="salsas">
-      <h2>Nuestras salsas</h2>
-      <p class="sub">Un solo precio para las dos.</p>
-
-      <div class="productos">
-        <article class="prod morita">
-          <div class="banda">Morita</div>
-          <div class="cuerpo">
-            <div class="precio">$250 <small class="sans">MXN · frasco</small></div>
-            <p>Salsa macha de chile morita.</p>
-            <a class="btn chico sans" href="https://wa.me/525543774702?text=Hola%2C%20quiero%20salsa%20Apapacho%20Morita" target="_blank" rel="noopener">Pedir Morita</a>
-          </div>
-        </article>
-
-        <article class="prod arbol">
-          <div class="banda">De árbol</div>
-          <div class="cuerpo">
-            <div class="precio">$250 <small class="sans">MXN · frasco</small></div>
-            <p>Salsa macha de chile de árbol.</p>
-            <a class="btn chico sans" href="https://wa.me/525543774702?text=Hola%2C%20quiero%20salsa%20Apapacho%20De%20%C3%A1rbol" target="_blank" rel="noopener">Pedir De árbol</a>
-          </div>
-        </article>
-      </div>
-
-      <div class="ingredientes">
-        <strong>Ingredientes:</strong> aceite de oliva extra virgen prensado en frío, cebolla, chiles secos, echalote, sal de mar, ajo y especias. Todo va frito.
-      </div>
-    </section>
-
-    <section id="pedir">
-      <h2>Cómo pedir</h2>
-      <p class="sub">Los pedidos entran por WhatsApp e Instagram.</p>
-      <ol class="pasos sans">
-        <li>Escríbenos por WhatsApp al <strong>55 4377 4702</strong> o por Instagram a <strong>@apapachobynatguindi</strong>.</li>
-        <li>Dinos qué sabor quieres y cuántos frascos.</li>
-        <li>Te confirmamos la entrega en tu zona.</li>
-      </ol>
-    </section>
-
-    <section id="zonas">
-      <h2>Zonas de entrega</h2>
-      <div class="zonas sans">
-        <span>Bosques de las Lomas</span>
-        <span>Lomas</span>
-        <span>Interlomas</span>
-        <span>Polanco</span>
-        <span>La Herradura</span>
-        <span>Santa Fe</span>
-        <span>Tecamachalco</span>
-        <span>Virreyes</span>
-      </div>
-      <p class="nota sans">Las zonas son aproximadas. Si estás cerca, pregúntanos.</p>
-    </section>
-
-    <section>
-      <div class="cierre">
-        <h2>¿Quieres probarla?</h2>
-        <div class="sans" style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
-          <a class="btn" href="https://wa.me/525543774702?text=Hola%2C%20quiero%20pedir%20salsa%20Apapacho.%20%C2%BFQu%C3%A9%20sabores%20tienen%20hoy%3F" target="_blank" rel="noopener">Pedir por WhatsApp</a>
-          <a class="btn borde" href="https://instagram.com/apapachobynatguindi" target="_blank" rel="noopener">@apapachobynatguindi</a>
+    <div class="contenido">
+      <div>
+        <h1>Salsa macha hecha en casa</h1>
+        <p>Salsa macha artesanal. Chile morita o chile de árbol en aceite de oliva extra virgen prensado en frío.</p>
+        <div class="acciones">
+          <a class="btn" href="https://wa.me/525543774702?text=Hola%2C%20quiero%20pedir%20salsa%20Apapacho.%20%C2%BFQu%C3%A9%20sabores%20tienen%20hoy%3F" target="_blank" rel="noopener">
+            <svg aria-hidden="true"><use href="#ico-wa"/></svg>Pedir por WhatsApp
+          </a>
+          <a class="btn linea" href="https://instagram.com/apapachobynatguindi" target="_blank" rel="noopener">Ver Instagram</a>
         </div>
       </div>
-    </section>
-
+      <div class="chiles" aria-hidden="true">
+        <svg class="c-arbol" data-gira="-1"><use href="#chile-arbol"/></svg>
+        <svg class="c-morita" data-gira="1"><use href="#chile-morita"/></svg>
+      </div>
+    </div>
   </div>
-</main>
+</section>
 
-<footer>
-  <div class="wrap sans">
-    Apapacho · hecha en casa por Natalia y Bruno ·
-    <a href="https://instagram.com/apapachobynatguindi" target="_blank" rel="noopener">Instagram</a>
+<!-- Las dos salsas -->
+<div class="salsas" id="salsas">
+  <section class="seccion salsa morita" data-goteo="var(--morita)">
+    <div class="dentro">
+      <svg class="grande entra" viewBox="0 0 260 200" aria-hidden="true"><use href="#chile-morita"/></svg>
+      <h2>Morita</h2>
+      <p>Chile morita en aceite de oliva extra virgen prensado en frío.</p>
+      <div class="precio">$250 <small>MXN el frasco</small></div>
+      <a class="btn claro" href="https://wa.me/525543774702?text=Hola%2C%20quiero%20salsa%20Apapacho%20Morita" target="_blank" rel="noopener">
+        <svg aria-hidden="true"><use href="#ico-wa"/></svg>Pedir Morita
+      </a>
+    </div>
+  </section>
+
+  <section class="seccion salsa arbol" data-goteo="var(--naranja)">
+    <div class="dentro">
+      <svg class="grande entra" viewBox="0 0 400 120" aria-hidden="true"><use href="#chile-arbol"/></svg>
+      <h2>De árbol</h2>
+      <p>Chile de árbol en aceite de oliva extra virgen prensado en frío.</p>
+      <div class="precio">$250 <small>MXN el frasco</small></div>
+      <a class="btn claro" href="https://wa.me/525543774702?text=Hola%2C%20quiero%20salsa%20Apapacho%20De%20%C3%A1rbol" target="_blank" rel="noopener">
+        <svg aria-hidden="true"><use href="#ico-wa"/></svg>Pedir De árbol
+      </a>
+    </div>
+  </section>
+
+  <section class="seccion salsa arandano" data-goteo="var(--arandano)">
+    <div class="dentro">
+      <svg class="grande entra" viewBox="0 0 340 230" aria-hidden="true"><use href="#morita-arandano"/></svg>
+      <h2>Morita con arándano</h2>
+      <p>Chile morita con arándano en aceite de oliva extra virgen prensado en frío.</p>
+      <div class="precio">$280 <small>MXN el frasco</small></div>
+      <a class="btn claro" href="https://wa.me/525543774702?text=Hola%2C%20quiero%20salsa%20Apapacho%20Morita%20con%20ar%C3%A1ndano" target="_blank" rel="noopener">
+        <svg aria-hidden="true"><use href="#ico-wa"/></svg>Pedir con arándano
+      </a>
+    </div>
+  </section>
+</div>
+
+<!-- Lo que lleva -->
+<section class="seccion lleva" data-goteo="var(--rosa)">
+  <div class="wrap">
+    <h2>Lo que lleva</h2>
+    <p class="lista">Aceite de oliva extra virgen prensado en frío, cebolla, <em>chiles secos</em>, echalote, sal de mar, ajo y especias.</p>
   </div>
-</footer>
+  <div class="echale" aria-label="Échale a huevos, tacos, totopos, pizza y quesadillas">
+    <div class="wrap"><p>Échale a</p></div>
+    <div class="fila" data-corre aria-hidden="true">
+      <span>huevos</span><span>tacos</span><span>totopos</span><span>pizza</span><span>quesadillas</span>
+      <span>huevos</span><span>tacos</span><span>totopos</span><span>pizza</span><span>quesadillas</span>
+    </div>
+  </div>
+</section>
 
+<!-- Cómo pedir -->
+<section class="seccion pedir" data-goteo="var(--morita)">
+  <div class="wrap">
+    <h2>Cómo pedir:</h2>
+    <ol class="pasos">
+      <li>Escríbenos por WhatsApp al <strong>55 4377 4702</strong> o por Instagram a <strong>@apapachobynatguindi</strong>.</li>
+      <li>Dinos qué sabor quieres y cuántos frascos.</li>
+      <li>Te confirmamos la entrega en tu zona.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- Zonas -->
+<section class="seccion zonas" data-goteo="var(--rosa)">
+  <div class="wrap">
+    <h2>Entregamos en</h2>
+    <ul>
+      <li>Bosques de las Lomas</li>
+      <li>Lomas</li>
+      <li>Interlomas</li>
+      <li>Polanco</li>
+      <li>La Herradura</li>
+      <li>Santa Fe</li>
+      <li>Tecamachalco</li>
+      <li>Virreyes</li>
+      <li>El sur de la ciudad</li>
+    </ul>
+    <p class="nota"><strong>Todos los envíos tienen costo extra.</strong> Si estás cerca de alguna de estas zonas, pregúntanos.</p>
+  </div>
+</section>
+
+<!-- Cierre -->
+<section class="cierre">
+  <div class="wrap">
+    <h2>¿Cuál te llevas?</h2>
+    <div class="acciones">
+      <a class="btn claro" href="https://wa.me/525543774702?text=Hola%2C%20quiero%20pedir%20salsa%20Apapacho.%20%C2%BFQu%C3%A9%20sabores%20tienen%20hoy%3F" target="_blank" rel="noopener">
+        <svg aria-hidden="true"><use href="#ico-wa"/></svg>Pedir por WhatsApp
+      </a>
+      <a class="btn linea" href="https://instagram.com/apapachobynatguindi" target="_blank" rel="noopener">@apapachobynatguindi</a>
+    </div>
+    <footer>
+      <img src="assets/logo-semilla.png" alt="Apapacho" width="900" height="183">
+      <span>Hecha en casa por Natalia y Bruno</span>
+    </footer>
+  </div>
+</section>
+
+<script>
+(function () {
+  var quieto = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Gotas: cada sección escurre su color sobre la siguiente
+  function azar(semilla) { return function () { semilla = (semilla * 9301 + 49297) % 233280; return semilla / 233280; }; }
+  var goteos = [];
+  document.querySelectorAll('[data-goteo]').forEach(function (sec, i) {
+    var cont = document.createElement('div');
+    cont.className = 'goteo';
+    cont.setAttribute('aria-hidden', 'true');
+    var r = azar(i * 97 + 13);
+    var n = window.innerWidth < 700 ? 7 : 12;
+    for (var k = 0; k < n; k++) {
+      var g = document.createElement('span');
+      var x = (k + .15 + r() * .7) / n * 100;
+      g.style.left = 'calc(' + x.toFixed(2) + '% - 12px)';
+      g.style.setProperty('--w', (14 + r() * 22).toFixed(0) + 'px');
+      g.style.setProperty('--h', (45 + r() * 95).toFixed(0) + 'px');
+      g.style.setProperty('--c', sec.getAttribute('data-goteo'));
+      cont.appendChild(g);
+    }
+    sec.appendChild(cont);
+    goteos.push({ sec: sec, cont: cont });
+  });
+
+  var chiles = document.querySelectorAll('[data-gira]');
+  var fila = document.querySelector('[data-corre]');
+
+  function pinta() {
+    var vh = window.innerHeight;
+    goteos.forEach(function (o) {
+      var abajo = o.sec.getBoundingClientRect().bottom;
+      // 0 cuando el borde está abajo de la pantalla, 1 cuando ya subió buena parte
+      var p = Math.min(1, Math.max(0, (vh - abajo) / (vh * .55)));
+      o.cont.style.setProperty('--p', (.3 + p * .9).toFixed(3));
+      o.cont.querySelectorAll('span').forEach(function (s) { s.style.setProperty('--p', (.3 + p * .9).toFixed(3)); });
+    });
+    var y = window.scrollY;
+    chiles.forEach(function (c) {
+      var d = +c.getAttribute('data-gira');
+      c.style.transform = 'translateY(' + (y * .12 * d) + 'px) rotate(' + (y * .03 * d) + 'deg)';
+    });
+    if (fila) {
+      var t = fila.getBoundingClientRect().top;
+      fila.style.transform = 'translateX(' + ((t - vh) * .35) + 'px)';
+    }
+  }
+
+  if (quieto) {
+    goteos.forEach(function (o) { o.cont.querySelectorAll('span').forEach(function (s) { s.style.setProperty('--p', '.7'); }); });
+  } else {
+    var pendiente = false;
+    window.addEventListener('scroll', function () {
+      if (!pendiente) { pendiente = true; requestAnimationFrame(function () { pinta(); pendiente = false; }); }
+    }, { passive: true });
+    window.addEventListener('resize', pinta);
+    pinta();
+  }
+
+  // Los chiles grandes entran girando una sola vez
+  var entran = document.querySelectorAll('.entra');
+  if ('IntersectionObserver' in window && !quieto) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('visto'); io.unobserve(e.target); } });
+    }, { threshold: .3 });
+    entran.forEach(function (el) { io.observe(el); });
+  } else {
+    entran.forEach(function (el) { el.classList.add('visto'); });
+  }
+})();
+</script>
 </body>
 </html>
